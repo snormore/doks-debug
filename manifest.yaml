@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: k8s-debug
+  labels:
+    app: k8s-debug
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      name: k8s-debug
+  template:
+    metadata:
+      labels:
+        name: k8s-debug
+    spec:
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      containers:
+        - resources:
+            requests:
+              cpu: 0.15
+          securityContext:
+            privileged: true
+          image: snormore/k8s-debug:latest
+          name: k8s-debug
+          command: [ "sleep", "infinity" ]
+          volumeMounts:
+            - name: dev
+              mountPath: /dev
+            - name: run
+              mountPath: /var/run/docker.sock
+            - name: sys
+              mountPath: /sys
+            - name: log
+              mountPath: /var/log
+      volumes:
+        - name: dev
+          hostPath:
+              path: /dev
+        - name: run
+          hostPath:
+              path: /var/run/docker.sock
+              type: Socket
+        - name: sys
+          hostPath:
+              path: /sys
+        - name: log
+          hostPath:
+              path: /var/log
