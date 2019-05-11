@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doks-debug
+  labels:
+    app: doks-debug
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: doks-debug
+  template:
+    metadata:
+      labels:
+        name: doks-debug
+    spec:
+      containers:
+        - resources:
+            requests:
+              cpu: 0.15
+          securityContext:
+            privileged: true
+          image: snormore/doks-debug:latest
+          name: doks-debug
+          command: [ "sleep", "infinity" ]
