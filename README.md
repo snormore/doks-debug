@@ -1,1 +1,1 @@
-A [Docker](https://www.docker.com/) image and [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) for investigating workers in a Kubernetes cluster.
+A Docker image with Kubernetes manifests for investigation and troubleshooting.
