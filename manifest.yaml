@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: k8s-debug
+  name: doks-debug
   labels:
-    app: k8s-debug
+    app: doks-debug
     version: v1
 spec:
   selector:
     matchLabels:
-      name: k8s-debug
+      name: doks-debug
   template:
     metadata:
       labels:
-        name: k8s-debug
+        name: doks-debug
     spec:
       hostPID: true
       hostIPC: true
@@ -23,8 +23,8 @@ spec:
               cpu: 0.15
           securityContext:
             privileged: true
-          image: snormore/k8s-debug:latest
-          name: k8s-debug
+          image: snormore/doks-debug:latest
+          name: doks-debug
           command: [ "sleep", "infinity" ]
           volumeMounts:
             - name: dev
